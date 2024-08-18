@@ -15,14 +15,15 @@ function Login() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Dummy credentials for validation
-        const validUsername = 'i';
-        const validPassword = 'i';
+        const validUsername = 'mashadi';
+        const validPassword = 'mashadi@123';
 
         // Clear previous error
         setError(null);
 
         // Validate credentials
         if (username === validUsername && password === validPassword) {
+            localStorage.setItem("isLogin", "true");
             navigate('inputs')
             // Handle successful login (e.g., redirect to another page)
         } else {
@@ -33,7 +34,7 @@ function Login() {
 
     return (
 
-        <Grid container component="main" sx={{ height: '70vh', marginTop: '50px' }}> {/* یا می‌توانید از margin به جای m استفاده کنید */}
+        <Grid container component="main" sx={{ height: '70vh', marginTop: '50px' }}>
             <Grid
                 item
                 xs={false}
@@ -41,7 +42,7 @@ function Login() {
                 md={6}
                 sx={{
                     display: { xs: 'none', md: 'flex' },
-                    backgroundImage: `url("/src/assets/background-form.jpg")`,
+                    backgroundImage: `url("/background-form.jpg")`,
                     justifyContent: 'center',
                     alignItems: 'center',
                     backgroundSize: '100%',
@@ -75,7 +76,7 @@ function Login() {
                         padding: '16px',
                     }}
                 >
-                    <Avatar src='./src/assets/logo.webp' sx={{ m: 1 }} />
+                    <Avatar src='/logo.webp' sx={{ m: 1 }} />
 
                     <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)} sx={{ mt: 1 }}>
                         <TextField

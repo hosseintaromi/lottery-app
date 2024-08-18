@@ -1,14 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Box, Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import useStore from "../usestore.ts";
+import useStore from "../useStore.ts";
 
 const Uploader: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const setImage = useStore(state => state.setImage)
 
-    const defaultImageUrl = '/src/assets/default-image.jpeg'; // Replace with your default image path
+    const defaultImageUrl = '/default-image.jpeg'; // Replace with your default image path
 
     // Set default preview URL if no file is selected
     React.useEffect(() => {

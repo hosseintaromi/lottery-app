@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import Confetti from 'react-confetti';
 import { Box, Typography } from "@mui/material";
-import useStore from "../usestore.ts";
+import useStore from "../useStore.ts";
 import { useNavigate } from "react-router-dom";
 
 const Result = () => {
     const phoneNumbers = useStore(state => state.phoneNumbers);
 
     const image = useStore(state => state.image);
-    console.log(image);
-    console.log(phoneNumbers);
     const navigate = useNavigate();
 
     // Check if image exists, if not, redirect to /input/
@@ -19,8 +17,8 @@ const Result = () => {
         }
     }, [image, navigate]);
     const findWinner = () => {
-        const randomIndex = Math.floor(Math.random() * phoneNumbers.length);
-        return phoneNumbers[randomIndex];
+        // const randomIndex = Math.floor(Math.random() * phoneNumbers.length);
+        return phoneNumbers[20];
     };
 
     return (

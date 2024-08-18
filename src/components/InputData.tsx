@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button";
 import { Box, FormControl, FormGroup, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { useState, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from "react";
 import Uploader from "./Uploader.tsx";
 import { useNavigate } from "react-router-dom";
-import useStore from '../usestore.ts';
+import useStore from '../useStore.ts';
 
 const InputData = () => {
     const [contestName, setContestName] = useState('');
@@ -15,6 +15,12 @@ const InputData = () => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const isLogin = localStorage.getItem("isLogin");
+        !isLogin && navigate('/')
+
+    }, [])
+
     const maskPhoneNumber = (phone: string) => {
         if (phone.length >= 6) {
             return phone.slice(0, 3) + '***' + phone.slice(6);
@@ -24,11 +30,11 @@ const InputData = () => {
 
     const handleChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
         const numbers = event.target.value.split("\n");
-        console.log(phoneNumbersRaw);
+        // console.log(phoneNumbersRaw);
         setPhoneNumberRaw([]);
         setPhoneNumberMask([]);
         for (let i = 0; i < numbers.length; i++) {
-            console.log(numbers[i]);
+            // console.log(numbers[i]);
             setPhoneNumberRaw((pre) => [
                 ...pre, numbers[i]
             ]);
@@ -88,7 +94,7 @@ const InputData = () => {
     };
 
     return (
-        <Grid container component="main" sx={{ height: '40vh', marginTop: '50px' }}>
+        <Grid container component="main" sx={{ height: '30vh' }}>
             <Grid item
                 xs={12}
                 md={6}
@@ -100,6 +106,7 @@ const InputData = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: '12px',
+                    height: '70vh',
 
 
                 }}>
@@ -110,13 +117,20 @@ const InputData = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     width: '100%',
-                    maxWidth: '100px',
+                    maxWidth: '50px',
                     padding: '16px',
 
 
                 }}>
-                    <FormGroup>
-                        <FormControl margin="normal">
+                    <FormGroup sx={{
+                        '@media (max-width:600px)': {
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+
+                        }
+                    }}>
+                        <FormControl margin="normal" >
                             <TextField
                                 name="contestName"
                                 value={contestName}
@@ -167,7 +181,7 @@ const InputData = () => {
                     display: { xs: 'none', md: 'flex' },
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundImage: `url("/src/assets/input-form-background.png")`,
+                    backgroundImage: `url("/input-form-background.png")`,
                     backgroundSize: "80%",
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'right',
