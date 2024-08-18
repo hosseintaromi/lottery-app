@@ -1,4 +1,4 @@
-import create from "zustand";
+import {create} from "zustand";
 
 interface StoreState {
   phoneNumbers: string[]; // Array of phone numbers as strings

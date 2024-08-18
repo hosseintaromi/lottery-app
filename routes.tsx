@@ -5,7 +5,7 @@ import InputData from "./src/components/InputData.tsx";
 import VideoPlayer from "./src/components/VideoPlayer.tsx";
 import Result from "./src/components/Result.tsx";
 
-;
+
 
 const router = createBrowserRouter([
     {
