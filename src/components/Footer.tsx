@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box} from '@mui/material';
 
 const Footer = () => {
     return (
@@ -17,9 +17,7 @@ const Footer = () => {
                 left: 0,
             }}
         >
-            <Typography variant="body2" component="p">
-                ©  تمام حقوق اين وب‌سايت برای شرکت blackstudio است.
-            </Typography>
+
         </Box>
     );
 };

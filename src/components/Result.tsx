@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
+import { EmojiEvents } from '@mui/icons-material';  // اضافه کردن ایکون
 import useStore from "../useStore.ts";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"  // اضافه کردن برای انیمیشن
 
 const Result = () => {
+    const [showWinner, setShowWinner] = useState(false);
     const phoneNumbers = useStore(state => state.phoneNumbers);
-
     const image = useStore(state => state.image);
     const navigate = useNavigate();
 
@@ -16,6 +18,12 @@ const Result = () => {
             navigate('/inputs/');
         }
     }, [image, navigate]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShowWinner(true), 2000);  // بعد از دو ثانیه شماره برنده نمایش داده می‌شود
+        return () => clearTimeout(timer);
+    }, []);
+
     const findWinner = () => {
         // const randomIndex = Math.floor(Math.random() * phoneNumbers.length);
         return phoneNumbers[20];
@@ -26,9 +34,9 @@ const Result = () => {
             sx={{
                 direction: 'rtl',
                 textAlign: 'center',
-                width: '90%',
+                width: '100%',
                 margin: "auto",
-                height: '70vh',
+                height: '100vh',
                 backgroundPosition: 'center',
                 display: 'flex',
                 justifyContent: 'center',
@@ -39,9 +47,7 @@ const Result = () => {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: "cover",
                 borderRadius: '10px'
-
             }}
-
         >
             <Box
                 sx={{
@@ -63,6 +69,18 @@ const Result = () => {
                     },
                 }}
             >
+                <motion.div
+                    initial={{ scale: 0 }}  // انیمیشن شروع از سایز صفر
+                    animate={{ scale: 1 }}   // انیمیشن به سایز طبیعی
+                    transition={{ duration: 0.5 }}  // مدت زمان انیمیشن
+                >
+                    <IconButton
+                        sx={{ color: 'gold', fontSize: '2rem' }}
+                        aria-label="winner-icon"
+                    >
+                        <EmojiEvents fontSize="large" />
+                    </IconButton>
+                </motion.div>
                 <Typography
                     variant="h3" // Smaller variant for mobile
                     sx={{
@@ -74,8 +92,29 @@ const Result = () => {
                         },
                     }}
                 >
-                    {findWinner()}
+                    برنده خوش شانس مسابقه
                 </Typography>
+                {showWinner && (
+                    <motion.div
+                        initial={{ opacity: 0 }}  // شروع از حالت شفافیت صفر
+                        animate={{ opacity: 1 }}   // افزایش شفافیت تا ۱
+                        transition={{ duration: 1 }}  // مدت زمان انیمیشن
+                    >
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                mt: 2,
+                                fontSize: {
+                                    xs: '1.2rem',
+                                    sm: '2rem',
+                                    md: '3rem',
+                                },
+                            }}
+                        >
+                            {findWinner()}
+                        </Typography>
+                    </motion.div>
+                )}
             </Box>
 
             <Confetti

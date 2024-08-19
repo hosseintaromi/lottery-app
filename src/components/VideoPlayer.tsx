@@ -20,13 +20,14 @@ const VideoPlayer = () => {
     };
     return (
         <Card sx={{
-            width: '80%', margin: " auto",
+            width: '100%', margin: " auto",
         }}>
             <CardMedia
                 component="video"
                 src='/CountDown.mp4'
                 title="Video"
                 autoPlay
+
                 onEnded={handleVideoEnd}
             />
         </Card>
