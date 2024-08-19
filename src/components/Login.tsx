@@ -48,6 +48,7 @@ function Login() {
                     backgroundSize: '100%',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'left',
+
                 }}
             />
             <Grid
@@ -62,6 +63,7 @@ function Login() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: '12px',
+                    height: '60vh',
                 }}
             >
                 <Box

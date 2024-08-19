@@ -108,27 +108,20 @@ const InputData = () => {
                     borderRadius: '12px',
                     height: '70vh',
 
+                    '@media (max-width:667px)': {
+                        paddingY: '250px',
+                        height: '10vh',
 
-                }}>
-                <Box component="form" onSubmit={handleSubmit} sx={{
-                    my: 4,
-                    mx: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    width: '100%',
-                    maxWidth: '50px',
-                    padding: '16px',
+                }
+
 
 
                 }}>
+                <Box component="form" onSubmit={handleSubmit} >
                     <FormGroup sx={{
-                        '@media (max-width:600px)': {
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-
-                        }
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}>
                         <FormControl margin="normal" >
                             <TextField

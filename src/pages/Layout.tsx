@@ -10,7 +10,7 @@ const Layout = () => {
     return (
         <>
             <Navbar />
-            <Box margin={"50px"}>
+            <Box margin={"20px"}>
                 <Outlet />
             </Box>
             <Footer />

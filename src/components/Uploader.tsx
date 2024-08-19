@@ -50,7 +50,12 @@ const Uploader: React.FC = () => {
             </label>
 
             {previewUrl && (
-                <Box sx={{ marginTop: 2 }}>
+                <Box sx={{ marginTop: 2 ,
+                    '@media (max-width:667px)': {
+                        display: 'none'
+
+                    }}}>
+
                     <img src={previewUrl} alt="Preview" style={{ width: '100%', maxHeight: '60px', objectFit: 'contain' }} />
                 </Box>
             )}
