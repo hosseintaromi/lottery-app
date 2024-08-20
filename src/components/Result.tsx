@@ -3,21 +3,14 @@ import Confetti from 'react-confetti';
 import { Box, Typography, IconButton } from "@mui/material";
 import { EmojiEvents } from '@mui/icons-material';  // اضافه کردن ایکون
 import useStore from "../useStore.ts";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"  // اضافه کردن برای انیمیشن
 
 const Result = () => {
     const [showWinner, setShowWinner] = useState(false);
     const phoneNumbers = useStore(state => state.phoneNumbers);
-    const image = useStore(state => state.image);
-    const navigate = useNavigate();
+    const image = useStore(state => state.image) || '/gaming-case-min.jpg';
+    const contestNameStore = useStore(state => state.contestNameStore);
 
-    // Check if image exists, if not, redirect to /input/
-    useEffect(() => {
-        if (!image) {
-            navigate('/inputs/');
-        }
-    }, [image, navigate]);
 
     useEffect(() => {
         const timer = setTimeout(() => setShowWinner(true), 2000);  // بعد از دو ثانیه شماره برنده نمایش داده می‌شود
@@ -46,7 +39,6 @@ const Result = () => {
                 backgroundImage: `url(${image})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: "cover",
-                borderRadius: '10px'
             }}
         >
             <Box
@@ -62,6 +54,7 @@ const Result = () => {
                     padding: '20px',
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     borderRadius: '8px',
+                    height: '350px',
                     width: {
                         xs: '80%', // For mobile devices
                         sm: '60%', // For tablets
@@ -92,7 +85,7 @@ const Result = () => {
                         },
                     }}
                 >
-                    برنده خوش شانس مسابقه
+                    برنده خوش شانس مسابقه<br /> {contestNameStore}
                 </Typography>
                 {showWinner && (
                     <motion.div

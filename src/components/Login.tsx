@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 
-import {Grid, Paper} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import { Grid, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = React.useState('');
@@ -35,9 +35,15 @@ function Login() {
     return (
 
         <Grid container component="main" sx={{
-            height: '70vh',
-            marginTop: 12,
-            padding: "40px",
+            padding: "100px",
+            backgroundImage: `url("/gaming-case-lottery.jpg")`,
+            backgroundSize: "100%",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left',
+            height: '100vh',
+            '@media (max-width:667px)': {
+                padding: "40px",
+            }
 
 
         }}>
@@ -47,13 +53,8 @@ function Login() {
                 sm={false}
                 md={6}
                 sx={{
-                    display: {xs: 'none', md: 'flex'},
-                    backgroundImage: `url("/background-form.jpg")`,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundSize: '80%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'left',
+                    display: { xs: 'none', md: 'flex' },
+
 
 
                 }}
@@ -85,9 +86,9 @@ function Login() {
                         padding: '16px',
                     }}
                 >
-                    <Avatar src='/logo.webp' sx={{m: 1}}/>
+                    <Avatar src='/logo.webp' sx={{ m: 1 }} />
 
-                    <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)} sx={{mt: 1}}>
+                    <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -111,7 +112,7 @@ function Login() {
                             id="password"
                         />
                         {error && (
-                            <Box sx={{mt: 2, color: '#bd3233'}}>
+                            <Box sx={{ mt: 2, color: '#bd3233' }}>
                                 {error}
                             </Box>
                         )}
@@ -120,7 +121,7 @@ function Login() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{ mt: 3, mb: 2 }}
                         >
                             ورود
                         </Button>

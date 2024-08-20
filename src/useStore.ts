@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from "zustand";
 
 interface StoreState {
   phoneNumbers: string[]; // Array of phone numbers as strings
@@ -12,7 +12,7 @@ interface StoreState {
 const useStore = create<StoreState>((set) => ({
   phoneNumbers: [],
   image: "",
-  contestNameStore: "",
+  contestNameStore: "کیس گیمینگ",
   setPhoneNumbers: (numbers) => set({ phoneNumbers: numbers }),
   setContestNameStore: (name) => set({ contestNameStore: name }),
   setImage: (img) => set({ image: img }),

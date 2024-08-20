@@ -1,17 +1,17 @@
 import Button from "@mui/material/Button";
-import {Box, FormControl, FormGroup, Grid, Paper, TextField, Typography} from "@mui/material";
-import React, {useState, ChangeEvent, KeyboardEvent, useEffect} from "react";
-import Uploader from "./Uploader.tsx";
-import {useNavigate} from "react-router-dom";
+import { Box, FormControl, FormGroup, Grid, Paper, TextField, Typography } from "@mui/material";
+import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useStore from '../useStore.ts';
 
 const InputData = () => {
-    const [contestName, setContestName] = useState('');
+    const setContestNameStore = useStore(state => state.setContestNameStore);
+    const contestNameStore = useStore(state => state.contestNameStore);
+    const [contestName, setContestName] = useState(contestNameStore);
     const [phoneNumbersRaw, setPhoneNumberRaw] = useState<string[]>([]);
     const [phoneNumbersMask, setPhoneNumberMask] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null); // State for error messages
     const setPhoneNumbers = useStore(state => state.setPhoneNumbers);
-    const setContestNameStore = useStore(state => state.setContestNameStore);
 
     const navigate = useNavigate();
 
@@ -95,8 +95,12 @@ const InputData = () => {
 
 
     return (
-        <Grid container component="main"   sx={{
+        <Grid container component="main" sx={{
             padding: "100px",
+            backgroundImage: `url("/gaming-case-lottery.jpg")`,
+            backgroundSize: "100%",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'left',
             '@media (max-width:667px)': {
                 padding: "40px",
             }
@@ -108,48 +112,40 @@ const InputData = () => {
                 sm={false}
                 md={6}
                 sx={{
-                    display: {xs: 'none', md: 'flex'},
+                    display: { xs: 'none', md: 'flex' },
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundImage: `url("/input-form-background.png")`,
-                    backgroundSize: "100%",
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'left',
 
 
 
                 }}
 
             />
-            <Grid  item
-                  xs={12}
-                  md={6}
-                  component={Paper}
-                  elevation={6}
-                  square
-                  sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: '12px',
-                      height: '80vh',
+            <Grid item
+                xs={12}
+                md={6}
+                component={Paper}
+                elevation={6}
+                square
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '12px',
+                    height: '80vh',
+                    width: '100%',
+
+                    '@media (max-width:667px)': {
+                        height: '95vh',
+                    }
 
 
-                      '@media (max-width:667px)': {
-                          paddingY: '200px',
-                          height: '95vh',
-                      }
+                }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ width: '50%' }}>
+                    <FormGroup
 
-
-                  }}>
-                <Box component="form" onSubmit={handleSubmit}>
-                    <FormGroup sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-
-                    }}>
-                        <FormControl margin="normal">
+                    >
+                        <FormControl margin="normal" >
                             <TextField
                                 name="contestName"
                                 value={contestName}
@@ -161,9 +157,9 @@ const InputData = () => {
                             />
                         </FormControl>
 
-                        <Uploader/>
+                        {/* <Uploader /> */}
 
-                        <FormControl margin="normal" sx={{direction: 'rtl',}}>
+                        <FormControl margin="normal" >
                             <TextField
                                 name="phoneNumberInput"
                                 value={phoneNumbersMask.join('\n')}
@@ -175,7 +171,13 @@ const InputData = () => {
                                 multiline
                                 rows={8}
                                 maxRows={10}
-                                error={!!error && phoneNumbersRaw.length === 0} // Show error if phone numbers are empty
+                                error={!!error && phoneNumbersRaw.length === 0}
+                                inputProps={{
+                                    sx: { direction: 'rtl', textAlign: 'left' }, // Align placeholder to the right, but keep the text left-aligned
+                                }}
+                                InputLabelProps={{
+                                    sx: { direction: 'rtl', textAlign: 'right' }, // Ensure the placeholder is right-aligned
+                                }}
                             />
                         </FormControl>
 
@@ -185,7 +187,7 @@ const InputData = () => {
                             </Typography>
                         )}
 
-                        <Button variant="contained" color="primary" type="submit" sx={{marginTop: '20px'}}>
+                        <Button variant="contained" color="primary" type="submit" sx={{ marginTop: '20px' }}>
                             شروع قرعه کشی
                         </Button>
                     </FormGroup>
