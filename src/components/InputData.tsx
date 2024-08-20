@@ -23,7 +23,7 @@ const InputData = () => {
 
     const maskPhoneNumber = (phone: string) => {
         if (phone.length >= 6) {
-            return phone.slice(0, 4) + '***' + phone.slice(6);
+            return phone.slice(0, 4) + '***' + phone.slice(7);
         }
         return phone;
     };

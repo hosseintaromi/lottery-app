@@ -9,7 +9,6 @@ const Result = () => {
     const [showWinner, setShowWinner] = useState(false);
     const phoneNumbers = useStore(state => state.phoneNumbers);
     const image = useStore(state => state.image) || '/gaming-case-min.jpg';
-    const contestNameStore = useStore(state => state.contestNameStore);
 
 
     useEffect(() => {
@@ -54,7 +53,7 @@ const Result = () => {
                     padding: '20px',
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     borderRadius: '8px',
-                    height: '350px',
+                    height: '300px',
                     width: {
                         xs: '80%', // For mobile devices
                         sm: '60%', // For tablets
@@ -85,8 +84,7 @@ const Result = () => {
                         },
                     }}
                 >
-                    برنده خوش شانس مسابقه<br /> {contestNameStore}
-                </Typography>
+                    برنده کیس گیمینگ تدوینگرشو                </Typography>
                 {showWinner && (
                     <motion.div
                         initial={{ opacity: 0 }}  // شروع از حالت شفافیت صفر
