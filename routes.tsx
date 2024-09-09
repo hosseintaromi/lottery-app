@@ -1,29 +1,33 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from './src/components/Login.tsx'
 import Layout from "./src/pages/Layout.tsx";
 import InputData from "./src/components/InputData.tsx";
 import VideoPlayer from "./src/components/VideoPlayer.tsx";
 import Result from "./src/components/Result.tsx";
+import Create from "./src/components/Create.tsx";
 
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Layout/>,
+        element: <Layout />,
         children: [
             {
-                index: true, element: <Login/>
+                index: true, element: <Login />
             },
             {
-                path: 'inputs/', element: <InputData/>,
+                path: 'inputs/', element: <InputData />,
+            },
+            {
+                path: 'Create-lottery/', element: <Create />,
             },
 
             {
-                path: 'medias/', element: <VideoPlayer/>
+                path: 'medias/', element: <VideoPlayer />
             },
             {
-                path: 'result/', element: <Result/>
+                path: 'result/', element: <Result />
             }
 
 

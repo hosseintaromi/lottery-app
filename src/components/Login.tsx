@@ -24,7 +24,7 @@ function Login() {
         // Validate credentials
         if (username === validUsername && password === validPassword) {
             localStorage.setItem("isLogin", "true");
-            navigate('inputs')
+            navigate('Create-lottery')
             // Handle successful login (e.g., redirect to another page)
         } else {
             setError('نام کاربری یا رمز عبور اشتباه است.');

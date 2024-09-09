@@ -2,24 +2,29 @@ import Button from "@mui/material/Button";
 import { Box, FormControl, FormGroup, Grid, Paper, TextField, Typography } from "@mui/material";
 import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from '../useStore.ts';
+import useStore from "../useStore";
 
 const InputData = () => {
-    const setContestNameStore = useStore(state => state.setContestNameStore);
-    const contestNameStore = useStore(state => state.contestNameStore);
-    const [contestName, setContestName] = useState(contestNameStore);
     const [phoneNumbersRaw, setPhoneNumberRaw] = useState<string[]>([]);
     const [phoneNumbersMask, setPhoneNumberMask] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null); // State for error messages
-    const setPhoneNumbers = useStore(state => state.setPhoneNumbers);
-
+    const { cover, setPhoneNumbers, isHide } = useStore();
     const navigate = useNavigate();
+
+    // State for managing background image URL
+    const [backgroundImage, setBackgroundImage] = useState<string>("/gaming-case-lottery.jpg");
 
     useEffect(() => {
         const isLogin = localStorage.getItem("isLogin");
-        !isLogin && navigate('/')
+        !isLogin && navigate('/');
 
-    }, [])
+        // Update background image when cover changes
+        if (cover) {
+            setBackgroundImage(URL.createObjectURL(cover));
+        } else {
+            setBackgroundImage("/gaming-case-lottery.jpg"); // Default background
+        }
+    }, [cover, navigate]);
 
     const maskPhoneNumber = (phone: string) => {
         if (phone.length >= 6) {
@@ -30,19 +35,12 @@ const InputData = () => {
 
     const handleChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
         const numbers = event.target.value.split("\n");
-        // console.log(phoneNumbersRaw);
         setPhoneNumberRaw([]);
         setPhoneNumberMask([]);
         for (let i = 0; i < numbers.length; i++) {
-            // console.log(numbers[i]);
-            setPhoneNumberRaw((pre) => [
-                ...pre, numbers[i]
-            ]);
-
-            const validInput = maskPhoneNumber(numbers[i]);
-            setPhoneNumberMask((pre) => [
-                ...pre, validInput
-            ]);
+            setPhoneNumberRaw((pre) => [...pre, numbers[i]]);
+            const validInput = isHide ? maskPhoneNumber(numbers[i]) : numbers[i]; // Conditionally mask phone number
+            setPhoneNumberMask((pre) => [...pre, validInput]);
         }
     };
 
@@ -68,44 +66,26 @@ const InputData = () => {
         }
     };
 
-    const handleChangeContestName = (event: ChangeEvent<HTMLInputElement>) => {
-        let newValue = event.target.value;
-
-        const persianToEnglishMap: { [key: string]: string } = {
-            "۰": "0", "۱": "1", "۲": "2", "۳": "3", "۴": "4", "۵": "5", "۶": "6", "۷": "7", "۸": "8", "۹": "9"
-        };
-        newValue = newValue.replace(/[۰-۹]/g, (match) => persianToEnglishMap[match]);
-
-        setContestName(newValue);
-    };
-
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
-        if (!contestName || phoneNumbersRaw.length === 0) {
-            setError("لطفاً نام مسابقه و شماره‌های قرعه‌کشی را وارد کنید."); // Set error message
-            return; // Prevent form submission
-        }
-
-        setError(null); // Clear any previous errors
         setPhoneNumbers(phoneNumbersMask);
-        setContestNameStore(contestName);
         navigate('/medias/');
     };
 
-
     return (
         <Grid container component="main" sx={{
-            padding: "100px",
-            backgroundImage: `url("/gaming-case-lottery.jpg")`,
+            backgroundImage: `url(${backgroundImage})`,
+            height: '100dvh',
             backgroundSize: "100%",
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'left',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             '@media (max-width:667px)': {
                 padding: "40px",
             }
         }}>
-
             <Grid
                 item
                 xs={false}
@@ -115,15 +95,11 @@ const InputData = () => {
                     display: { xs: 'none', md: 'flex' },
                     justifyContent: 'center',
                     alignItems: 'center',
-
-
-
                 }}
-
             />
             <Grid item
                 xs={12}
-                md={6}
+                md={4}
                 component={Paper}
                 elevation={6}
                 square
@@ -132,34 +108,15 @@ const InputData = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderRadius: '12px',
-                    height: '80vh',
+                    height: '60vh',
                     width: '100%',
-
                     '@media (max-width:667px)': {
                         height: '95vh',
                     }
-
-
                 }}>
                 <Box component="form" onSubmit={handleSubmit} sx={{ width: '50%' }}>
-                    <FormGroup
-
-                    >
-                        <FormControl margin="normal" >
-                            <TextField
-                                name="contestName"
-                                value={contestName}
-                                onChange={handleChangeContestName}
-                                placeholder="نام مسابقه"
-                                variant="outlined"
-                                fullWidth
-                                error={!!error && !contestName} // Show error if contestName is empty
-                            />
-                        </FormControl>
-
-                        {/* <Uploader /> */}
-
-                        <FormControl margin="normal" >
+                    <FormGroup>
+                        <FormControl margin="normal">
                             <TextField
                                 name="phoneNumberInput"
                                 value={phoneNumbersMask.join('\n')}

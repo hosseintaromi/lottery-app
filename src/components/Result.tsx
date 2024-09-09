@@ -1,24 +1,44 @@
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { Box, Typography, IconButton } from "@mui/material";
-import { EmojiEvents } from '@mui/icons-material';  // اضافه کردن ایکون
+import { EmojiEvents } from '@mui/icons-material';
 import useStore from "../useStore.ts";
-import { motion } from "framer-motion"  // اضافه کردن برای انیمیشن
+import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 const Result = () => {
     const [showWinner, setShowWinner] = useState(false);
-    const phoneNumbers = useStore(state => state.phoneNumbers);
-    const image = useStore(state => state.image) || '/gaming-case-min.jpg';
-
+    const { image, phoneNumbers, winnerIndex } = useStore();
+    const [backgroundImage, setBackgroundImage] = useState<string>('/gaming-case-min.jpg');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const timer = setTimeout(() => setShowWinner(true), 2000);  // بعد از دو ثانیه شماره برنده نمایش داده می‌شود
-        return () => clearTimeout(timer);
-    }, []);
+        if (!phoneNumbers.length) {
+            navigate('/inputs');
+        }
+        const timer = setTimeout(() => setShowWinner(true), 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [phoneNumbers, navigate]);
+    useEffect(() => {
+        // Update the background image when `image` changes
+        if (image) {
+            setBackgroundImage(URL.createObjectURL(image));
+        }
+
+        return () => {
+            if (image) {
+                URL.revokeObjectURL(backgroundImage);  // Clean up URL object
+            }
+        };
+    }, [image]);
 
     const findWinner = () => {
-        // const randomIndex = Math.floor(Math.random() * phoneNumbers.length);
-        return phoneNumbers[20];
+        return winnerIndex
+            ? phoneNumbers[winnerIndex - 1]
+            : phoneNumbers[Math.floor(Math.random() * phoneNumbers.length)];
     };
 
     return (
@@ -35,7 +55,7 @@ const Result = () => {
                 alignItems: 'center',
                 position: 'relative',
                 overflow: 'hidden',
-                backgroundImage: `url(${image})`,
+                backgroundImage: `url(${backgroundImage})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: "cover",
             }}
@@ -55,16 +75,16 @@ const Result = () => {
                     borderRadius: '8px',
                     height: '300px',
                     width: {
-                        xs: '80%', // For mobile devices
-                        sm: '60%', // For tablets
-                        md: '50%', // For desktops
+                        xs: '80%',
+                        sm: '60%',
+                        md: '50%',
                     },
                 }}
             >
                 <motion.div
-                    initial={{ scale: 0 }}  // انیمیشن شروع از سایز صفر
-                    animate={{ scale: 1 }}   // انیمیشن به سایز طبیعی
-                    transition={{ duration: 0.5 }}  // مدت زمان انیمیشن
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.5 }}
                 >
                     <IconButton
                         sx={{ color: 'gold', fontSize: '2rem' }}
@@ -74,22 +94,23 @@ const Result = () => {
                     </IconButton>
                 </motion.div>
                 <Typography
-                    variant="h3" // Smaller variant for mobile
+                    variant="h3"
                     sx={{
                         mt: 2,
                         fontSize: {
-                            xs: '1.5rem', // Smaller font size for mobile
-                            sm: '2.5rem', // Medium font size for tablets
-                            md: '3.5rem', // Larger font size for desktops
+                            xs: '1.5rem',
+                            sm: '2.5rem',
+                            md: '3.5rem',
                         },
                     }}
                 >
-                    برنده کیس گیمینگ تدوینگرشو                </Typography>
+                    برنده تدوینگرشو
+                </Typography>
                 {showWinner && (
                     <motion.div
-                        initial={{ opacity: 0 }}  // شروع از حالت شفافیت صفر
-                        animate={{ opacity: 1 }}   // افزایش شفافیت تا ۱
-                        transition={{ duration: 1 }}  // مدت زمان انیمیشن
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
                     >
                         <Typography
                             variant="h4"

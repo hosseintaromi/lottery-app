@@ -5,11 +5,9 @@ import useStore from "../useStore.ts";
 
 const VideoPlayer = () => {
     const navigate = useNavigate();
-    const phoneNumbers = useStore(state => state.phoneNumbers);
+    const { video, phoneNumbers } = useStore();
 
     useEffect(() => {
-        const isLogin = localStorage.getItem("isLogin");
-        !isLogin && navigate('/')
         !phoneNumbers.length && navigate('/inputs')
     }, [navigate, phoneNumbers]);
 
@@ -29,7 +27,7 @@ const VideoPlayer = () => {
         }}>
             <CardMedia
                 component="video"
-                src='/CountDown.mp4'
+                src={video ? URL.createObjectURL(video) : '/CountDown.mp4'}
                 title="Video"
                 autoPlay
                 onEnded={handleVideoEnd}

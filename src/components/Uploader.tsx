@@ -1,64 +1,73 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { Box, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import useStore from "../useStore.ts";
 
-const Uploader: React.FC = () => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const setImage = useStore(state => state.setImage)
+interface FileUploaderProps {
+    label: string;
+    onFileSelect: (file: File) => void;
+}
 
-    const defaultImageUrl = '/default-image.jpeg'; // Replace with your default image path
+// ایجاد دکمه با استایل مشخص
+const StyledButton = styled(Button)(({ theme }) => ({
+    maxWidth: '200px', // حداکثر عرض دکمه
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+}));
 
-    // Set default preview URL if no file is selected
-    React.useEffect(() => {
-        setImage(defaultImageUrl);
-    }, [setImage]);
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0] || null;
-        console.log(selectedFile)
-        setSelectedFile(file);
+const FileUploader: React.FC<FileUploaderProps> = ({ label, onFileSelect }) => {
+    const [fileName, setFileName] = useState<string>('');
 
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
         if (file) {
-            const objectUrl = URL.createObjectURL(file);
-            setPreviewUrl(objectUrl);
-            setImage(objectUrl);
-
+            setFileName(file.name);
+            onFileSelect(file);
         }
     };
 
-
     return (
-        <Box sx={{ width: '300px', margin: 'auto', textAlign: 'center', padding: 2 }}>
-
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
             <input
-                accept="image/*"
+                accept="*"
                 style={{ display: 'none' }}
-                id="upload-file"
+                id={`file-upload-${label}`}
                 type="file"
                 onChange={handleFileChange}
             />
-            <label htmlFor="upload-file">
+            <label htmlFor={`file-upload-${label}`} >
                 <Button
                     variant="contained"
                     color="primary"
                     component="span"
                     startIcon={<CloudUploadIcon />}
-                    sx={{ margin: 2 }}
+                    sx={{
+                        // width: '200px',
+                        // margin: 'auto'
+                    }}
                 >
-                    انتخاب عکس                </Button>
+                    <Box
+                        sx={{
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            width: '140px',
+                            direction: 'rtl',
+                            textAlign: 'center'
+                        }}
+                    >
+
+                        {fileName || `بارگذاری ${label}`}
+                    </Box>
+                </Button>
             </label>
-
-            {previewUrl && (
-                <Box sx={{ marginTop: 2 ,
-                    }}>
-
-                    <img src={previewUrl} alt="Preview" style={{ width: '100%', maxHeight: '60px', objectFit: 'contain' }} />
-                </Box>
-            )}
-
         </Box>
     );
 };
 
-export default Uploader;
+export default FileUploader;
