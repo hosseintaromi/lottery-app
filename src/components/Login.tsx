@@ -16,7 +16,7 @@ function Login() {
         event.preventDefault();
         // Dummy credentials for validation
         const validUsername = 'mashadi';
-        const validPassword = 'mashadi@123';
+        const validPassword = '9a,;Ay0£r9?';
 
         // Clear previous error
         setError(null);
@@ -37,15 +37,16 @@ function Login() {
         <Grid container component="main" sx={{
             padding: "100px",
             backgroundImage: `url("/gaming-case-lottery.jpg")`,
-            backgroundSize: "100%",
+            height: '100dvh',
+            backgroundSize: "cover", // این باعث می‌شود که بک‌گراند تمام صفحه را بپوشاند
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left',
-            height: '100vh',
+            backgroundPosition: 'center', // مرکز کردن تصویر بک‌گراند
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             '@media (max-width:667px)': {
                 padding: "40px",
             }
-
-
         }}>
             <Grid
                 item

@@ -76,9 +76,9 @@ const InputData = () => {
         <Grid container component="main" sx={{
             backgroundImage: `url(${backgroundImage})`,
             height: '100dvh',
-            backgroundSize: "100%",
+            backgroundSize: "cover", // این باعث می‌شود که بک‌گراند تمام صفحه را بپوشاند
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'left',
+            backgroundPosition: 'center', // مرکز کردن تصویر بک‌گراند
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -114,7 +114,7 @@ const InputData = () => {
                         height: '95vh',
                     }
                 }}>
-                <Box component="form" onSubmit={handleSubmit} sx={{ width: '50%' }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ width: '60%' }}>
                     <FormGroup>
                         <FormControl margin="normal">
                             <TextField
