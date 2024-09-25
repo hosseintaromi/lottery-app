@@ -104,7 +104,7 @@ const Result = () => {
                         },
                     }}
                 >
-                    برنده تدوینگرشو
+                    برنده قرعه کشی
                 </Typography>
                 {showWinner && (
                     <motion.div
