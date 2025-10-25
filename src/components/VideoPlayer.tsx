@@ -27,7 +27,7 @@ const VideoPlayer = () => {
         }}>
             <CardMedia
                 component="video"
-                src={video ? URL.createObjectURL(video) : '/CountDown.mp4'}
+                src={video ? URL.createObjectURL(video) : '/lottery/CountDown.mp4'}
                 title="Video"
                 autoPlay
                 onEnded={handleVideoEnd}

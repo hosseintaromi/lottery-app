@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Result = () => {
     const [showWinner, setShowWinner] = useState(false);
     const { image, phoneNumbers, winnerIndex } = useStore();
-    const [backgroundImage, setBackgroundImage] = useState<string>('/gaming-case-min.jpg');
+    const [backgroundImage, setBackgroundImage] = useState<string>('/lottery/gaming-case-min.jpg');
     const navigate = useNavigate();
 
     useEffect(() => {

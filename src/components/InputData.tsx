@@ -12,7 +12,7 @@ const InputData = () => {
     const navigate = useNavigate();
 
     // State for managing background image URL
-    const [backgroundImage, setBackgroundImage] = useState<string>("/gaming-case-lottery.jpg");
+    const [backgroundImage, setBackgroundImage] = useState<string>("/lottery/gaming-case-lottery.jpg");
 
     useEffect(() => {
         const isLogin = localStorage.getItem("isLogin");
@@ -22,7 +22,7 @@ const InputData = () => {
         if (cover) {
             setBackgroundImage(URL.createObjectURL(cover));
         } else {
-            setBackgroundImage("/gaming-case-lottery.jpg"); // Default background
+            setBackgroundImage("/lottery/gaming-case-lottery.jpg"); // Default background
         }
     }, [cover, navigate]);
 

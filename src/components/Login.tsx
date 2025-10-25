@@ -36,7 +36,7 @@ function Login() {
 
         <Grid container component="main" sx={{
             padding: "100px",
-            backgroundImage: `url("/gaming-case-lottery.jpg")`,
+            backgroundImage: `url("/lottery/gaming-case-lottery.jpg")`,
             height: '100dvh',
             backgroundSize: "cover", // این باعث می‌شود که بک‌گراند تمام صفحه را بپوشاند
             backgroundRepeat: 'no-repeat',
@@ -87,7 +87,7 @@ function Login() {
                         padding: '16px',
                     }}
                 >
-                    <Avatar src='/logo.webp' sx={{ m: 1 }} />
+                    <Avatar src='/lottery/logo.webp' sx={{ m: 1 }} />
 
                     <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)} sx={{ mt: 1 }}>
                         <TextField

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Login from './src/components/Login.tsx'
 import Layout from "./src/pages/Layout.tsx";
 import InputData from "./src/components/InputData.tsx";
@@ -8,7 +8,7 @@ import Create from "./src/components/Create.tsx";
 
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: '/',
         element: <Layout />,

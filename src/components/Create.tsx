@@ -12,14 +12,14 @@ const Create = () => {
     const navigate = useNavigate();
 
     // State for managing background image URL
-    const [backgroundImage, setBackgroundImage] = useState<string>("/gaming-case-lottery.jpg");
+    const [backgroundImage, setBackgroundImage] = useState<string>("/lottery/gaming-case-lottery.jpg");
 
     // useEffect to update backgroundImage when cover changes
     useEffect(() => {
         if (cover) {
             setBackgroundImage(URL.createObjectURL(cover));
         } else {
-            setBackgroundImage("/gaming-case-lottery.jpg"); // Default background
+            setBackgroundImage("/lottery/gaming-case-lottery.jpg"); // Default background
         }
         return () => {
             if (cover) {
