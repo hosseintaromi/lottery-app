@@ -1,50 +1,90 @@
-# React + TypeScript + Vite
+# اپلیکیشن قرعه‌کشی (Lottery App)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+این پروژه با استفاده از React، TypeScript و Vite ساخته شده است.
 
-Currently, two official plugins are available:
+## پیش‌نیازها
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js (نسخه 16 یا بالاتر)
+- npm یا yarn
 
-## Expanding the ESLint configuration
+## نصب و راه‌اندازی برای توسعه
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. ابتدا پروژه را کلون کنید:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone [آدرس مخزن]
+cd lottery-app
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. نصب وابستگی‌ها:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
+# یا
+yarn
 ```
+
+3. اجرای پروژه در محیط توسعه:
+
+```bash
+npm run dev
+# یا
+yarn dev
+```
+
+## دیپلوی کردن پروژه
+
+برای دیپلوی کردن پروژه، مراحل زیر را دنبال کنید:
+
+1. ساخت نسخه production:
+
+```bash
+npm run build
+# یا
+yarn build
+```
+
+2. بعد از اجرای دستور build، یک پوشه `dist` ایجاد می‌شود که شامل فایل‌های نهایی پروژه است.
+
+3. محتویات پوشه `dist` را می‌توانید روی هر هاست استاتیکی آپلود کنید.
+
+4. برای تست نسخه build شده به صورت لوکال:
+
+```bash
+npm run preview
+# یا
+yarn preview
+```
+
+## نکات مهم برای دیپلوی
+
+- اطمینان حاصل کنید که تمام فایل‌های استاتیک (تصاویر، ویدیوها) در پوشه `public` قرار دارند
+- فایل `vite.config.ts` را برای تنظیمات خاص محیط production بررسی کنید
+- در صورت نیاز، مسیر base در `vite.config.ts` را متناسب با آدرس هاست تنظیم کنید
+
+## ساختار فایل‌ها
+
+```
+lottery-app/
+├── dist/           # فایل‌های build شده
+├── public/         # فایل‌های استاتیک
+├── src/
+│   ├── components/ # کامپوننت‌های React
+│   ├── pages/      # صفحات اصلی
+│   ├── Ui/         # کامپوننت‌های UI پایه
+│   └── main.tsx    # نقطه شروع اپلیکیشن
+├── package.json
+└── vite.config.ts
+```
+
+## تکنولوژی‌های استفاده شده
+
+- React
+- TypeScript
+- Vite
+- React Router
+- Material-UI
+
+## پشتیبانی
+
+برای گزارش مشکلات یا سوالات، لطفاً یک issue جدید ایجاد کنید.
